@@ -47,3 +47,49 @@ function initializeOwners() {
     });
 }
 window.onload = initializeOwners;
+let cattleData = [];  // Mảng lưu trữ thông tin bò
+
+function addCow() {
+    const cowName = document.getElementById('cowName').value;
+    const breed = document.getElementById('breed').value;
+    const birthDate = document.getElementById('birthDate').value;
+    const owner = document.getElementById('owner').value;
+    const isPregnant = document.getElementById('isPregnant').checked;
+    const inseminationDate = isPregnant ? document.getElementById('inseminationDate').value : null;
+    const calvingHistory = document.getElementById('calvingHistory').value;
+
+    // Thêm thông tin bò vào mảng
+    cattleData.push({
+        cowName,
+        breed,
+        birthDate,
+        owner,
+        isPregnant,
+        inseminationDate,
+        calvingHistory,
+    });
+
+    // Cập nhật lại phân tích đàn bò
+    updateCattleAnalysis();
+
+    console.log('Cattle added:', cattleData);
+}
+
+function updateCattleAnalysis() {
+    const totalCows = cattleData.length;
+    const pregnantCows = cattleData.filter(cow => cow.isPregnant).length;
+    const inseminatedCows = cattleData.filter(cow => cow.inseminationDate && !cow.isPregnant).length;
+    const notPregnantCows = cattleData.filter(cow => !cow.isPregnant).length;
+    
+    // Hiển thị kết quả phân tích
+    document.getElementById('cattleAnalysis').innerHTML = `
+        <h2>Cattle Analysis</h2>
+        <ul>
+            <li>Total Cows: ${totalCows}</li>
+            <li>Pregnant Cows: ${pregnantCows}</li>
+            <li>Inseminated but Not Pregnant: ${inseminatedCows}</li>
+            <li>Not Pregnant Cows: ${notPregnantCows}</li>
+        </ul>
+    `;
+}
+
