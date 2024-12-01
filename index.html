@@ -80,3 +80,86 @@
     <script src="script.js"></script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cattle Management System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Cattle Management System</h1>
+
+        <!-- Owners Form -->
+        <form id="ownersForm">
+            <h2>Owner Information</h2>
+            <label for="ownerName">Owner Name:</label>
+            <input type="text" id="ownerName" required>
+
+            <label for="contact">Contact Information:</label>
+            <input type="text" id="contact" required>
+
+            <div class="form-buttons">
+                <button type="button" onclick="addOwner()">Add</button>
+                <button type="button" onclick="editOwner()">Edit</button>
+                <button type="button" onclick="deleteOwner()">Delete</button>
+                <button type="submit">Save</button>
+            </div>
+        </form>
+
+        <!-- Cows Form -->
+        <form id="cowsForm">
+            <h2>Cow Information</h2>
+            <label for="cowName">Cow Name:</label>
+            <input type="text" id="cowName" required>
+
+            <label for="breed">Breed:</label>
+            <input type="text" id="breed" required>
+
+            <label for="birthDate">Birth Date:</label>
+            <input type="date" id="birthDate">
+
+            <label for="owner">Owner:</label>
+            <select id="owner">
+                <option value="">Select Owner</option>
+                <!-- Populate dynamically with JavaScript -->
+            </select>
+
+            <label for="isPregnant">Is Pregnant:</label>
+            <input type="checkbox" id="isPregnant" onchange="toggleInseminationDate()"><br><br>
+
+            <div id="inseminationDateField" style="display:none;">
+                <label for="inseminationDate">Date of Insemination:</label>
+                <input type="date" id="inseminationDate"><br><br>
+            </div>
+
+            <label for="calvingHistory">Calving History:</label>
+            <input type="number" id="calvingHistory" min="1">
+
+            <div class="form-buttons">
+                <button type="button" onclick="addCow()">Add</button>
+                <button type="button" onclick="editCow()">Edit</button>
+                <button type="button" onclick="deleteCow()">Delete</button>
+                <button type="submit">Save</button>
+            </div>
+        </form>
+
+        <!-- Cattle Analysis Section -->
+        <div id="cattleAnalysis">
+            <h2>Cattle Analysis</h2>
+            <ul>
+                <li>Total Cows: <span id="totalCows">0</span></li>
+                <li>Pregnant Cows: <span id="pregnantCows">0</span></li>
+                <li>Inseminated but Not Pregnant: <span id="inseminatedCows">0</span></li>
+                <li>Not Pregnant Cows: <span id="notPregnantCows">0</span></li>
+            </ul>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
