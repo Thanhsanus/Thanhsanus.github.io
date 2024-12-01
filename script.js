@@ -92,4 +92,13 @@ function updateCattleAnalysis() {
         </ul>
     `;
 }
+let cattleData = [];  // Array to store cow information
+
+function addCow() {
+    const cowName = document.getElementById('cowName').value;
+    const breed = document.getElementById('breed').value;
+    const birthDate = document.getElementById('birthDate').value;
+    const owner = document.getElementById('owner').value;
+    const isPregnant = document.getElementById('isPregnant').checked;
+    const inseminationDate = isPregnant ? document.getElementById
 
