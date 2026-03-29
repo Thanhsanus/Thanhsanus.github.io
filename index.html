@@ -1,165 +1,533 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cattle Management System</title>
+    <title>PetCare - Quản Lý Sức Khỏe Thú Cưng</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Cattle Management System</h1>
-
-        <!-- Owners Form -->
-        <form id="ownersForm">
-            <h2>Owner Information</h2>
-            <label for="ownerName">Owner Name:</label>
-            <input type="text" id="ownerName" required>
-
-            <label for="contact">Contact Information:</label>
-            <input type="text" id="contact" required>
-
-            <div class="form-buttons">
-                <button type="button" onclick="addOwner()">Add</button>
-                <button type="button" onclick="editOwner()">Edit</button>
-                <button type="button" onclick="deleteOwner()">Delete</button>
-                <button type="submit">Save</button>
-            </div>
-        </form>
-
-        <!-- Cows Form -->
-        <form id="cowsForm">
-            <h2>Cow Information</h2>
-            <label for="cowName">Cow Name:</label>
-            <input type="text" id="cowName" required>
-
-            <label for="breed">Breed:</label>
-            <input type="text" id="breed" required>
-
-            <label for="birthDate">Birth Date:</label>
-            <input type="date" id="birthDate">
-
-            <label for="owner">Owner:</label>
-            <select id="owner">
-                <option value="">Select Owner</option>
-                <!-- Populate dynamically with JavaScript -->
-            </select>
-
-            <label for="isPregnant">Is Pregnant:</label>
-            <input type="checkbox" id="isPregnant" onchange="toggleInseminationDate()">
-
-            <div id="inseminationDateField" style="display:none;">
-                <label for="inseminationDate">Date of Insemination:</label>
-                <input type="date" id="inseminationDate"><br><br>
-            </div>
-
-            <label for="calvingHistory">Calving History:</label>
-            <input type="number" id="calvingHistory" min="1">
-
-            <div class="form-buttons">
-                <button type="button" onclick="addCow()">Add</button>
-                <button type="button" onclick="editCow()">Edit</button>
-                <button type="button" onclick="deleteCow()">Delete</button>
-                <button type="submit">Save</button>
-            </div>
-        </form>
-        
-        <!-- Additional forms for AI Records, Calf, etc., would be similarly structured -->
-
-    </div>
-<div id="cattleAnalysis">
-    <h2>Cattle Analysis</h2>
-    <ul>
-        <li>Total Cows: 0</li>
-        <li>Pregnant Cows: 0</li>
-        <li>Inseminated but Not Pregnant: 0</li>
-        <li>Not Pregnant Cows: 0</li>
-    </ul>
-</div>
-
-    <script src="script.js"></script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cattle Management System</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="container">
-        <h1>Cattle Management System</h1>
-
-        <!-- Owners Form -->
-        <form id="ownersForm">
-            <h2>Owner Information</h2>
-            <label for="ownerName">Owner Name:</label>
-            <input type="text" id="ownerName" required>
-
-            <label for="contact">Contact Information:</label>
-            <input type="text" id="contact" required>
-
-            <div class="form-buttons">
-                <button type="button" onclick="addOwner()">Add</button>
-                <button type="button" onclick="editOwner()">Edit</button>
-                <button type="button" onclick="deleteOwner()">Delete</button>
-                <button type="submit">Save</button>
-            </div>
-        </form>
-
-        <!-- Cows Form -->
-        <form id="cowsForm">
-            <h2>Cow Information</h2>
-            <label for="cowName">Cow Name:</label>
-            <input type="text" id="cowName" required>
-
-            <label for="breed">Breed:</label>
-            <input type="text" id="breed" required>
-
-            <label for="birthDate">Birth Date:</label>
-            <input type="date" id="birthDate">
-
-            <label for="owner">Owner:</label>
-            <select id="owner">
-                <option value="">Select Owner</option>
-                <!-- Populate dynamically with JavaScript -->
-            </select>
-
-            <label for="isPregnant">Is Pregnant:</label>
-            <input type="checkbox" id="isPregnant" onchange="toggleInseminationDate()"><br><br>
-
-            <div id="inseminationDateField" style="display:none;">
-                <label for="inseminationDate">Date of Insemination:</label>
-                <input type="date" id="inseminationDate"><br><br>
-            </div>
-
-            <label for="calvingHistory">Calving History:</label>
-            <input type="number" id="calvingHistory" min="1">
-
-            <div class="form-buttons">
-                <button type="button" onclick="addCow()">Add</button>
-                <button type="button" onclick="editCow()">Edit</button>
-                <button type="button" onclick="deleteCow()">Delete</button>
-                <button type="submit">Save</button>
-            </div>
-        </form>
-
-        <!-- Cattle Analysis Section -->
-        <div id="cattleAnalysis">
-            <h2>Cattle Analysis</h2>
-            <ul>
-                <li>Total Cows: <span id="totalCows">0</span></li>
-                <li>Pregnant Cows: <span id="pregnantCows">0</span></li>
-                <li>Inseminated but Not Pregnant: <span id="inseminatedCows">0</span></li>
-                <li>Not Pregnant Cows: <span id="notPregnantCows">0</span></li>
-            </ul>
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <span class="logo">🐾</span>
+            <h2>PetCare</h2>
         </div>
+        <ul class="nav-menu">
+            <li class="nav-item active" data-page="dashboard">
+                <span class="nav-icon">📊</span> Tổng Quan
+            </li>
+            <li class="nav-item" data-page="pets">
+                <span class="nav-icon">🐕</span> Thú Cưng
+            </li>
+            <li class="nav-item" data-page="owners">
+                <span class="nav-icon">👤</span> Chủ Nuôi
+            </li>
+            <li class="nav-item" data-page="health">
+                <span class="nav-icon">💉</span> Hồ Sơ Sức Khỏe
+            </li>
+            <li class="nav-item" data-page="appointments">
+                <span class="nav-icon">📅</span> Lịch Hẹn
+            </li>
+        </ul>
+    </nav>
 
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="top-bar">
+            <button class="menu-toggle" id="menuToggle">☰</button>
+            <h1 id="pageTitle">Tổng Quan</h1>
+            <div class="search-box">
+                <input type="text" id="globalSearch" placeholder="Tìm kiếm...">
+            </div>
+        </header>
+
+        <!-- Dashboard Page -->
+        <section class="page active" id="page-dashboard">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">🐾</div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="totalPets">0</span>
+                        <span class="stat-label">Thú Cưng</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">👤</div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="totalOwners">0</span>
+                        <span class="stat-label">Chủ Nuôi</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">💉</div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="totalVaccinations">0</span>
+                        <span class="stat-label">Lần Tiêm Chủng</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📅</div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="upcomingAppointments">0</span>
+                        <span class="stat-label">Lịch Hẹn Sắp Tới</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="card">
+                    <h3>Thú Cưng Theo Loại</h3>
+                    <div id="petTypeChart" class="chart-container"></div>
+                </div>
+                <div class="card">
+                    <h3>Hoạt Động Gần Đây</h3>
+                    <div id="recentActivity" class="activity-list"></div>
+                </div>
+                <div class="card">
+                    <h3>Tiêm Chủng Sắp Đến Hạn</h3>
+                    <div id="upcomingVaccinations" class="upcoming-list"></div>
+                </div>
+                <div class="card">
+                    <h3>Lịch Hẹn Hôm Nay</h3>
+                    <div id="todayAppointments" class="upcoming-list"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pets Page -->
+        <section class="page" id="page-pets">
+            <div class="page-header">
+                <h2>Quản Lý Thú Cưng</h2>
+                <button class="btn btn-primary" onclick="openPetModal()">+ Thêm Thú Cưng</button>
+            </div>
+            <div class="filter-bar">
+                <select id="filterPetType">
+                    <option value="">Tất cả loại</option>
+                    <option value="Chó">Chó</option>
+                    <option value="Mèo">Mèo</option>
+                    <option value="Chim">Chim</option>
+                    <option value="Cá">Cá</option>
+                    <option value="Hamster">Hamster</option>
+                    <option value="Thỏ">Thỏ</option>
+                    <option value="Khác">Khác</option>
+                </select>
+                <select id="filterPetStatus">
+                    <option value="">Tất cả trạng thái</option>
+                    <option value="Khỏe mạnh">Khỏe mạnh</option>
+                    <option value="Đang điều trị">Đang điều trị</option>
+                    <option value="Cần theo dõi">Cần theo dõi</option>
+                </select>
+            </div>
+            <div class="pets-grid" id="petsList"></div>
+        </section>
+
+        <!-- Owners Page -->
+        <section class="page" id="page-owners">
+            <div class="page-header">
+                <h2>Quản Lý Chủ Nuôi</h2>
+                <button class="btn btn-primary" onclick="openOwnerModal()">+ Thêm Chủ Nuôi</button>
+            </div>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Họ Tên</th>
+                            <th>Số Điện Thoại</th>
+                            <th>Email</th>
+                            <th>Địa Chỉ</th>
+                            <th>Số Thú Cưng</th>
+                            <th>Thao Tác</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ownersList"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Health Records Page -->
+        <section class="page" id="page-health">
+            <div class="page-header">
+                <h2>Hồ Sơ Sức Khỏe</h2>
+                <button class="btn btn-primary" onclick="openHealthModal()">+ Thêm Hồ Sơ</button>
+            </div>
+            <div class="filter-bar">
+                <select id="filterHealthPet">
+                    <option value="">Tất cả thú cưng</option>
+                </select>
+                <select id="filterHealthType">
+                    <option value="">Tất cả loại hồ sơ</option>
+                    <option value="vaccination">Tiêm chủng</option>
+                    <option value="checkup">Khám tổng quát</option>
+                    <option value="treatment">Điều trị</option>
+                    <option value="surgery">Phẫu thuật</option>
+                    <option value="medication">Thuốc</option>
+                </select>
+            </div>
+
+            <!-- Health Record Detail View -->
+            <div id="healthPetSelector" class="health-pet-selector">
+                <p class="hint-text">Chọn thú cưng để xem hồ sơ sức khỏe chi tiết</p>
+            </div>
+
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ngày</th>
+                            <th>Thú Cưng</th>
+                            <th>Loại</th>
+                            <th>Mô Tả</th>
+                            <th>Bác Sĩ</th>
+                            <th>Ghi Chú</th>
+                            <th>Thao Tác</th>
+                        </tr>
+                    </thead>
+                    <tbody id="healthList"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Appointments Page -->
+        <section class="page" id="page-appointments">
+            <div class="page-header">
+                <h2>Lịch Hẹn</h2>
+                <button class="btn btn-primary" onclick="openAppointmentModal()">+ Tạo Lịch Hẹn</button>
+            </div>
+            <div class="filter-bar">
+                <select id="filterApptStatus">
+                    <option value="">Tất cả</option>
+                    <option value="upcoming">Sắp tới</option>
+                    <option value="completed">Hoàn thành</option>
+                    <option value="cancelled">Đã hủy</option>
+                </select>
+            </div>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ngày Giờ</th>
+                            <th>Thú Cưng</th>
+                            <th>Chủ Nuôi</th>
+                            <th>Lý Do</th>
+                            <th>Trạng Thái</th>
+                            <th>Thao Tác</th>
+                        </tr>
+                    </thead>
+                    <tbody id="appointmentsList"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- Pet Modal -->
+    <div class="modal" id="petModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="petModalTitle">Thêm Thú Cưng</h3>
+                <button class="modal-close" onclick="closeModal('petModal')">&times;</button>
+            </div>
+            <form id="petForm" onsubmit="savePet(event)">
+                <input type="hidden" id="petId">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="petName">Tên Thú Cưng *</label>
+                        <input type="text" id="petName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="petType">Loại *</label>
+                        <select id="petType" required>
+                            <option value="">Chọn loại</option>
+                            <option value="Chó">Chó</option>
+                            <option value="Mèo">Mèo</option>
+                            <option value="Chim">Chim</option>
+                            <option value="Cá">Cá</option>
+                            <option value="Hamster">Hamster</option>
+                            <option value="Thỏ">Thỏ</option>
+                            <option value="Khác">Khác</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="petBreed">Giống</label>
+                        <input type="text" id="petBreed" placeholder="VD: Poodle, Mèo Ba Tư...">
+                    </div>
+                    <div class="form-group">
+                        <label for="petGender">Giới Tính</label>
+                        <select id="petGender">
+                            <option value="Đực">Đực</option>
+                            <option value="Cái">Cái</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="petBirthDate">Ngày Sinh</label>
+                        <input type="date" id="petBirthDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="petWeight">Cân Nặng (kg)</label>
+                        <input type="number" id="petWeight" step="0.1" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="petColor">Màu Lông</label>
+                        <input type="text" id="petColor">
+                    </div>
+                    <div class="form-group">
+                        <label for="petMicrochip">Số Microchip</label>
+                        <input type="text" id="petMicrochip">
+                    </div>
+                    <div class="form-group">
+                        <label for="petOwner">Chủ Nuôi *</label>
+                        <select id="petOwner" required>
+                            <option value="">Chọn chủ nuôi</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="petStatus">Trạng Thái</label>
+                        <select id="petStatus">
+                            <option value="Khỏe mạnh">Khỏe mạnh</option>
+                            <option value="Đang điều trị">Đang điều trị</option>
+                            <option value="Cần theo dõi">Cần theo dõi</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group full-width">
+                    <label for="petNotes">Ghi Chú</label>
+                    <textarea id="petNotes" rows="3"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('petModal')">Hủy</button>
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                </div>
+            </form>
+        </div>
     </div>
+
+    <!-- Owner Modal -->
+    <div class="modal" id="ownerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="ownerModalTitle">Thêm Chủ Nuôi</h3>
+                <button class="modal-close" onclick="closeModal('ownerModal')">&times;</button>
+            </div>
+            <form id="ownerForm" onsubmit="saveOwner(event)">
+                <input type="hidden" id="ownerId">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="ownerFullName">Họ Tên *</label>
+                        <input type="text" id="ownerFullName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="ownerPhone">Số Điện Thoại *</label>
+                        <input type="tel" id="ownerPhone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="ownerEmail">Email</label>
+                        <input type="email" id="ownerEmail">
+                    </div>
+                    <div class="form-group">
+                        <label for="ownerAddress">Địa Chỉ</label>
+                        <input type="text" id="ownerAddress">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('ownerModal')">Hủy</button>
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Health Record Modal -->
+    <div class="modal" id="healthModal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h3 id="healthModalTitle">Thêm Hồ Sơ Sức Khỏe</h3>
+                <button class="modal-close" onclick="closeModal('healthModal')">&times;</button>
+            </div>
+            <form id="healthForm" onsubmit="saveHealthRecord(event)">
+                <input type="hidden" id="healthId">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="healthPet">Thú Cưng *</label>
+                        <select id="healthPet" required>
+                            <option value="">Chọn thú cưng</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="healthDate">Ngày *</label>
+                        <input type="date" id="healthDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="healthType">Loại Hồ Sơ *</label>
+                        <select id="healthType" required onchange="toggleHealthFields()">
+                            <option value="">Chọn loại</option>
+                            <option value="vaccination">Tiêm Chủng</option>
+                            <option value="checkup">Khám Tổng Quát</option>
+                            <option value="treatment">Điều Trị</option>
+                            <option value="surgery">Phẫu Thuật</option>
+                            <option value="medication">Thuốc</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="healthVet">Bác Sĩ Thú Y</label>
+                        <input type="text" id="healthVet">
+                    </div>
+                </div>
+
+                <!-- Vaccination Fields -->
+                <div id="vaccinationFields" class="conditional-fields" style="display:none">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="vaccineName">Tên Vắc-xin</label>
+                            <input type="text" id="vaccineName">
+                        </div>
+                        <div class="form-group">
+                            <label for="vaccineNextDate">Ngày Tiêm Nhắc</label>
+                            <input type="date" id="vaccineNextDate">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Treatment Fields -->
+                <div id="treatmentFields" class="conditional-fields" style="display:none">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="diagnosis">Chẩn Đoán</label>
+                            <input type="text" id="diagnosis">
+                        </div>
+                        <div class="form-group">
+                            <label for="prescription">Đơn Thuốc</label>
+                            <input type="text" id="prescription">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Checkup Fields -->
+                <div id="checkupFields" class="conditional-fields" style="display:none">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="checkupWeight">Cân Nặng (kg)</label>
+                            <input type="number" id="checkupWeight" step="0.1" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="checkupTemp">Nhiệt Độ (°C)</label>
+                            <input type="number" id="checkupTemp" step="0.1">
+                        </div>
+                        <div class="form-group">
+                            <label for="checkupHeartRate">Nhịp Tim (bpm)</label>
+                            <input type="number" id="checkupHeartRate">
+                        </div>
+                        <div class="form-group">
+                            <label for="checkupResult">Kết Quả</label>
+                            <select id="checkupResult">
+                                <option value="Bình thường">Bình thường</option>
+                                <option value="Cần theo dõi">Cần theo dõi</option>
+                                <option value="Bất thường">Bất thường</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Medication Fields -->
+                <div id="medicationFields" class="conditional-fields" style="display:none">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="medName">Tên Thuốc</label>
+                            <input type="text" id="medName">
+                        </div>
+                        <div class="form-group">
+                            <label for="medDosage">Liều Lượng</label>
+                            <input type="text" id="medDosage">
+                        </div>
+                        <div class="form-group">
+                            <label for="medFrequency">Tần Suất</label>
+                            <input type="text" id="medFrequency" placeholder="VD: 2 lần/ngày">
+                        </div>
+                        <div class="form-group">
+                            <label for="medEndDate">Ngày Kết Thúc</label>
+                            <input type="date" id="medEndDate">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="healthDescription">Mô Tả</label>
+                    <textarea id="healthDescription" rows="2"></textarea>
+                </div>
+                <div class="form-group full-width">
+                    <label for="healthNotes">Ghi Chú</label>
+                    <textarea id="healthNotes" rows="2"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('healthModal')">Hủy</button>
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Appointment Modal -->
+    <div class="modal" id="appointmentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="appointmentModalTitle">Tạo Lịch Hẹn</h3>
+                <button class="modal-close" onclick="closeModal('appointmentModal')">&times;</button>
+            </div>
+            <form id="appointmentForm" onsubmit="saveAppointment(event)">
+                <input type="hidden" id="appointmentId">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="apptPet">Thú Cưng *</label>
+                        <select id="apptPet" required>
+                            <option value="">Chọn thú cưng</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="apptDate">Ngày *</label>
+                        <input type="date" id="apptDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="apptTime">Giờ *</label>
+                        <input type="time" id="apptTime" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="apptReason">Lý Do *</label>
+                        <select id="apptReason" required>
+                            <option value="">Chọn lý do</option>
+                            <option value="Khám tổng quát">Khám tổng quát</option>
+                            <option value="Tiêm chủng">Tiêm chủng</option>
+                            <option value="Điều trị">Điều trị</option>
+                            <option value="Phẫu thuật">Phẫu thuật</option>
+                            <option value="Tái khám">Tái khám</option>
+                            <option value="Khác">Khác</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group full-width">
+                    <label for="apptNotes">Ghi Chú</label>
+                    <textarea id="apptNotes" rows="2"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('appointmentModal')">Hủy</button>
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Pet Health Profile Modal -->
+    <div class="modal" id="petProfileModal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h3 id="petProfileTitle">Hồ Sơ Sức Khỏe</h3>
+                <button class="modal-close" onclick="closeModal('petProfileModal')">&times;</button>
+            </div>
+            <div id="petProfileContent"></div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
 
     <script src="script.js"></script>
 </body>
 </html>
-
